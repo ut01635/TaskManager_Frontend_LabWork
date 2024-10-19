@@ -1,0 +1,38 @@
+<div class="card ">
+    <div class="card-boby">
+
+        <div class="container p-2 mt-5">
+            <div class="d-flex justify-content-between">
+                <input class="border border-0 rounded-3" id="exampleDataList" placeholder="Type to search..." [(ngModel)]="SearchText">
+                <button class="btn btn-success" (click)="addTask()">Add New Task</button>
+            </div>
+            <table class="table table-hover mt-5">
+              <thead class="table-info p-2">
+                <tr >
+                  <th scope="col">#</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Due Date</th>
+                  <th scope="col">Priority</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of tasks| taskFilter: SearchText">
+                  <th scope="row">{{item.id}}</th>
+                  <td>{{item.title}}</td>
+                  <td>{{item.description}}</td>
+                  <td>{{item.dueDate | date : "dd/mm/yyyy"}}</td>
+                  <td>{{item.priority}}</td>
+                  <td class="d-flex">
+                    <button class="btn btn-warning me-2"> <i class="bi bi-pencil-square"></i></button>
+                    <button class="btn btn-danger" (click)="onDelete(item.id)"> <i class="bi bi-trash"></i></button>
+                  </td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>        
+    </div>
+</div>
+
