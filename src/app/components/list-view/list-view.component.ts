@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../Services/task.service';
 import { Router } from '@angular/router';
 import { Task } from '../../Models/task';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-view',
@@ -14,20 +15,22 @@ export class ListViewComponent implements OnInit {
 
   SearchText :string ='';
 
-  constructor (private taskService : TaskService, private router:Router){  }
+  constructor (private taskService : TaskService, private router:Router, private toastr : ToastrService){  }
 
   ngOnInit(): void {
     this.loadTask()
   }
 
   addTask(){
-    this.router.navigate(["/add"])
+    this.router.navigate(["/task-add"])
   }
 
   onDelete(id : number){
     return this.taskService.deleteTask(id).subscribe( data => {
-      alert ("Task is deleted")
+      this.toastr.success("Task is deleted")
       this.loadTask()
+    }, error =>{
+      this.toastr.error("Task delete faild")
     } )
   }
 
@@ -35,6 +38,10 @@ export class ListViewComponent implements OnInit {
     this.taskService.getTask().subscribe(d => {
       this.tasks = d
     })
+  }
+
+  onEdit(taskId : number){
+    this.router.navigate(['/task-edit',taskId ])
   }
 
 

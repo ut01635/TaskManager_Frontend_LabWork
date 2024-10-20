@@ -1,17 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Task } from '../Models/task';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
   
-  apiURL = 'http://localhost:5092/api/TaskItems'
+  apiURL = 'https://localhost:7059/api/TaskItems'
 
   constructor(private http : HttpClient) { }
 
   getTask(){
-    return this.http.get<any[]>(this.apiURL)
+    return this.http.get<Task[]>(this.apiURL)
   }
 
   addTask(task : any){
@@ -21,4 +22,13 @@ export class TaskService {
   deleteTask(id :number){
     return this.http.delete(this.apiURL + "/"+ id)
   }
+  getTaskById(id :number){
+    return this.http.get<Task>(this.apiURL + "/"+ id)
+  }
+
+  UpdateTask(task : Task){
+    return this.http.put(this.apiURL+ "/"+ task.id, task)
+  }
+
+  
 }

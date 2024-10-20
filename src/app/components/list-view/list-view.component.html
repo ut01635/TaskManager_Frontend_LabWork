@@ -18,14 +18,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of tasks| taskFilter: SearchText">
+                <tr *ngFor="let item of tasks| taskFilter: SearchText; ">
                   <th scope="row">{{item.id}}</th>
                   <td>{{item.title}}</td>
                   <td>{{item.description}}</td>
                   <td>{{item.dueDate | date : "dd/mm/yyyy"}}</td>
                   <td>{{item.priority}}</td>
                   <td class="d-flex">
-                    <button class="btn btn-warning me-2"> <i class="bi bi-pencil-square"></i></button>
+                    <button class="btn btn-warning me-2" (click)="onEdit(item.id)"> <i class="bi bi-pencil-square"></i></button>
                     <button class="btn btn-danger" (click)="onDelete(item.id)"> <i class="bi bi-trash"></i></button>
                   </td>
                 </tr>

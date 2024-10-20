@@ -9,13 +9,20 @@ import { ListViewComponent } from './components/list-view/list-view.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskFilterPipe } from './pipes/task-filter.pipe';
+import { EditTaskComponent } from './components/edit-task/edit-task.component';
+import { ToastrModule } from 'ngx-toastr';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { AddUserComponent } from './components/add-user/add-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListViewComponent,
     AddTaskComponent,
-    TaskFilterPipe
+    TaskFilterPipe,
+    EditTaskComponent,
+    UserListComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +30,8 @@ import { TaskFilterPipe } from './pipes/task-filter.pipe';
     CommonModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
