@@ -1,1 +1,38 @@
-<p>add-user works!</p>
+<div class="container row mt-5 d-flex justify-content-center">
+    <div class="bg-info-subtle p-5 rounded-3 col-6 ">
+      <h2 class="mb-4">{{isEdit == true ? 'Upadte User' : "Add new user"}}</h2>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  
+        <div class="mb-3">
+          <label for="name" class="form-label">Name:</label>
+          <input type="text" id="name" class="form-control " formControlName="name" name="name" required>
+          <div class="form-text text-danger"
+            *ngIf="userForm.controls.title.errors?.required.submit && userForm.controls.title.touched">Title is required.</div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" id="email" class="form-control" formControlName="email" name="email">
+        </div>
+  
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone</label>
+          <input type="text" id="phone" class="form-control" formControlName="phone" name="phone">
+        </div>
+  
+        <div class="mb-3">
+          <label for="password" class="form-label">Passwoed:</label>
+          <input type="password" id="password" class="form-control" formControlName="password" name="password" required="">
+          <div class="form-text text-danger"
+            *ngIf="userForm.controls.priority.errors?.required.submit && userForm.controls.Priority.touched">Password is
+            required.</div>
+        </div>
+  
+  
+        <div class=" d-flex justify-content-center">
+          <button type="submit" [disabled]="userForm.invalid" class="btn btn-success m-2">Save</button>
+          <button type="reset" class="btn btn-secondary m-2" (click)="resetForm()">Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>

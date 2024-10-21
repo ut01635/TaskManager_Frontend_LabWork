@@ -27,10 +27,11 @@ export class ListViewComponent implements OnInit {
 
   onDelete(id : number){
     return this.taskService.deleteTask(id).subscribe( data => {
-      this.toastr.success("Task is deleted")
+      confirm("Are you want delete this task?")
       this.loadTask()
+      this.toastr.success("Task is deleted!")
     }, error =>{
-      this.toastr.error("Task delete faild")
+      this.toastr.error("Task delete faild!")
     } )
   }
 
