@@ -4,4 +4,12 @@ export interface User {
     email:string,
     password:string,
     phone: string
+    address? : Address
+}
+
+export interface Address{
+    id : number,
+    addressLine1:string,
+    addressLine2:string,
+    city:string
 }

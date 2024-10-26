@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, MinLengthValidator } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../Services/user.service';
@@ -25,9 +25,9 @@ export class AddUserComponent implements OnInit {
 
     this.userForm = this.fb.group({
       name: ['', [Validators.required]],
-      email: [''],
-      phone: [''],
-      password: ['', [Validators.required]]
+      email: ['',[Validators.email]],
+      phone: ['', [Validators.pattern(/^07\d{8}$/)]],
+      password: ['', [Validators.required,Validators.minLength(8)]]
     })
 
     if (PatchId) {
@@ -41,9 +41,7 @@ export class AddUserComponent implements OnInit {
     if (this.isEdit == true) {
       this.userService.getUserById(this.userId).subscribe(data => {
         console.log(data);
-        console.log();
-        
-        
+
         this.userForm.patchValue({
           id: data.id,
           name: data.name,
@@ -52,23 +50,25 @@ export class AddUserComponent implements OnInit {
           password: data.password
         })
       }, error => {
-        this.toastr.error('user is not found')
+        this.toastr.error('User is not found!')
       })
     }
   }
 
   onSubmit() {
-    let User = this.userForm.value;
+    let User:User = this.userForm.value;
 
     if (this.isEdit == true) {
-      this.userService.UpdateUser(User).subscribe(data=>{
+      User.id = this.userId
+      this.userService.UpdateUser(User).subscribe(data => {
         this.toastr.success('user updated successfully');
         this.router.navigate(['/users'])
       }, Error => {
         this.toastr.error("User Updated failed")
       })
     }
-    else{
+    else {
+      
       this.userService.addUser(User).subscribe(data => {
         this.toastr.success("User is created successfully")
         this.router.navigate(["/users"]);
@@ -76,8 +76,8 @@ export class AddUserComponent implements OnInit {
         this.toastr.error("User created failed")
       })
     }
-    
-   
+
+
   }
 
   resetForm() {

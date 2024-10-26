@@ -2,9 +2,13 @@
     <div class="card mt-2">
       <h1 class="d-flex align-self-center mt-2">Task Details</h1>
         <div class="card-boby p-2 mt-2">
-            <div class="d-flex justify-content-between">
-                <input class="border border-0 rounded-3" id="exampleDataList" placeholder="Type to search..." [(ngModel)]="SearchText">
-                <button class="btn btn-success" (click)="addTask()">Add New Task</button>
+            <div class="d-flex justify-content-between mb-3">
+              <div class="p-2">
+                <input type="text" class="form-control" [(ngModel)]="SearchText" placeholder="Search Task....">
+              </div>
+              <div class="ml-auto p-2">
+                <button type="button" class="btn btn-success" (click)="addTask()">New Task</button>
+              </div>
             </div>
             <table class="table table-hover mt-5">
               <thead class="table-info p-2">

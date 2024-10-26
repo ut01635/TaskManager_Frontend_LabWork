@@ -7,25 +7,50 @@
           <label for="name" class="form-label">Name:</label>
           <input type="text" id="name" class="form-control " formControlName="name" name="name" required>
           <div class="form-text text-danger"
-            *ngIf="userForm.controls.title.errors?.required.submit && userForm.controls.title.touched">Title is required.</div>
+            *ngIf="userForm.controls.name.errors?.required && userForm.controls.name.touched">Name is required.</div>
         </div>
   
         <div class="mb-3">
           <label for="email" class="form-label">Email:</label>
           <input type="email" id="email" class="form-control" formControlName="email" name="email">
+          <div  class="form-text text-danger" *ngIf="userForm.controls.email">
+            <span *ngIf="userForm.controls.email.errors?.email"> Email address is invalid </span>
+          </div>
         </div>
   
         <div class="mb-3">
           <label for="phone" class="form-label">Phone</label>
           <input type="text" id="phone" class="form-control" formControlName="phone" name="phone">
+          <div  class="form-text text-danger" *ngIf="userForm.controls.phone">
+            <span *ngIf="userForm.controls.phone.errors"> Phone number should be 10 number only and start 07......... <p class="text-secondary">eg: 0771234567</p> </span>
+          </div>
         </div>
   
         <div class="mb-3">
-          <label for="password" class="form-label">Passwoed:</label>
+          <label for="password" class="form-label">Password:</label>
           <input type="password" id="password" class="form-control" formControlName="password" name="password" required="">
-          <div class="form-text text-danger"
-            *ngIf="userForm.controls.priority.errors?.required.submit && userForm.controls.Priority.touched">Password is
-            required.</div>
+          <div  class="form-text text-danger" *ngIf="userForm.controls.password.touched">
+            <span *ngIf="userForm.controls.password.errors?.required">Password is required</span>
+            <span *ngIf="userForm.controls.password.errors?.minlength">Password should be 8 character too long</span>
+          </div>
+        </div>
+
+        <div formGroupName="address">
+          <h3>Address Detalis</h3>
+          
+          <div class="mb-3">
+            <label for="password" class="form-label">Address Line 1: </label>
+            <input type="password" id="password" class="form-control" formControlName="password" name="password" required="">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Address Line 2: </label>
+            <input type="password" id="password" class="form-control" formControlName="password" name="password" required="">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">City: </label>
+            <input type="password" id="password" class="form-control" formControlName="password" name="password" required="">
+          </div>
+         
         </div>
   
   
