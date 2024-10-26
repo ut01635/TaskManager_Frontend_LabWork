@@ -36,6 +36,8 @@ export class UserListComponent implements OnInit {
 
   loadUser(){
     this.userService.getUser().subscribe(d => {
+      console.log(d);
+      
       this.users = d
     })
   }

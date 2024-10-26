@@ -18,6 +18,7 @@
                   <th scope="col">Email</th>
                   <th scope="col">Phone Number</th>
                   <th scope="col">Password</th>
+                  <th scope="col">Address</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
@@ -28,6 +29,7 @@
                   <td>{{item.email}}</td>
                   <td>{{item.phone}}</td>
                   <td class="password">{{item.password}}</td>
+                  <td>{{item.address?.addressLine1}},{{item.address?.addressLine2}},{{item.address?.city}}</td>
                   <td class="d-flex">
                     <button class="btn btn-warning me-2" (click)="onEdit(item.id)"> <i class="bi bi-pencil-square"></i></button>
                     <button class="btn btn-danger" (click)="onDelete(item.id)"> <i class="bi bi-trash"></i></button>
