@@ -1,63 +1,76 @@
 <div class="container row mt-5 d-flex justify-content-center">
-    <div class="bg-info-subtle p-5 rounded-3 col-6 ">
-      <h2 class="mb-4">{{isEdit == true ? 'Upadte User' : "Add new user"}}</h2>
-      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  
-        <div class="mb-3">
-          <label for="name" class="form-label">Name:</label>
-          <input type="text" id="name" class="form-control " formControlName="name" name="name" required>
-          <div class="form-text text-danger"
-            *ngIf="userForm.controls.name.errors?.required && userForm.controls.name.touched">Name is required.</div>
-        </div>
-  
-        <div class="mb-3">
-          <label for="email" class="form-label">Email:</label>
-          <input type="email" id="email" class="form-control" formControlName="email" name="email">
-          <div  class="form-text text-danger" *ngIf="userForm.controls.email">
-            <span *ngIf="userForm.controls.email.errors?.email"> Email address is invalid </span>
-          </div>
-        </div>
-  
-        <div class="mb-3">
-          <label for="phone" class="form-label">Phone</label>
-          <input type="text" id="phone" class="form-control" formControlName="phone" name="phone">
-          <div  class="form-text text-danger" *ngIf="userForm.controls.phone">
-            <span *ngIf="userForm.controls.phone.errors"> Phone number should be 10 number only and start 07......... <p class="text-secondary">eg: 0771234567</p> </span>
-          </div>
-        </div>
-  
-        <div class="mb-3">
-          <label for="password" class="form-label">Password:</label>
-          <input type="password" id="password" class="form-control" formControlName="password" name="password" required="">
-          <div  class="form-text text-danger" *ngIf="userForm.controls.password.touched">
-            <span *ngIf="userForm.controls.password.errors?.required">Password is required</span>
-            <span *ngIf="userForm.controls.password.errors?.minlength">Password should be 8 character too long</span>
-          </div>
-        </div>
+  <div class="bg-info-subtle p-5 rounded-3 col-6 ">
+    <h2 class="mb-4">{{isEdit == true ? 'Upadte User' : "Add new user"}}</h2>
+    <form [formGroup]="userForm" >
 
-        <div formGroupName="address">
-          <h3>Address Detalis</h3>
-          
-          <div class="mb-3">
-            <label for="password" class="form-label">Address Line 1: </label>
-            <input type="password" id="password" class="form-control" formControlName="password" name="password" required="">
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Address Line 2: </label>
-            <input type="password" id="password" class="form-control" formControlName="password" name="password" required="">
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">City: </label>
-            <input type="password" id="password" class="form-control" formControlName="password" name="password" required="">
-          </div>
-         
+      <div class="mb-3">
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" id="name" class="form-control " formControlName="name" name="name" 
+        [ngClass]="{'border-danger':isSubmited &&userForm.controls.name.errors?.required}">
+        <div class="form-text text-danger"
+          *ngIf="userForm.controls.name.errors?.required && userForm.controls.name.touched">Name is required.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" id="email" class="form-control" formControlName="email" name="email">
+        <div class="form-text text-danger" *ngIf="userForm.controls.email">
+          <span *ngIf="userForm.controls.email.errors?.email"> Email address is invalid </span>
         </div>
-  
-  
-        <div class=" d-flex justify-content-center">
-          <button type="submit" [disabled]="userForm.invalid" class="btn btn-success m-2">Save</button>
-          <button type="reset" class="btn btn-secondary m-2" (click)="resetForm()">Reset</button>
+      </div>
+
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone</label>
+        <input type="text" id="phone" class="form-control" formControlName="phone" name="phone">
+        <div class="form-text text-danger" *ngIf="userForm.controls.phone">
+          <span *ngIf="userForm.controls.phone.errors"> Phone number should be 10 number only and start 07......... <p
+              class="text-secondary">eg: 0771234567</p> </span>
         </div>
-      </form>
-    </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password:</label>
+        <input type="password" id="password" class="form-control" formControlName="password" name="password"
+        [ngClass]="{'border-danger':isSubmited &&userForm.controls.password.errors?.required}">
+        <div class="form-text text-danger" *ngIf="userForm.controls.password.touched">
+          <span *ngIf="userForm.controls.password.errors?.required">Password is required</span>
+          <span *ngIf="userForm.controls.password.errors?.minlength">Password should be 8 character too long</span>
+        </div>
+      </div>
+
+      <div formGroupName="address">
+        <h3>Address Detalis</h3>
+
+        <div class="mb-3">
+          <label for="addressLine1" class="form-label">Address Line 1: </label>
+          <input type="text" id="addressLine1" class="form-control" formControlName="addressLine1" name="addressLine1"
+          [ngClass]="{'border-danger':isSubmited &&userForm.get('address.addressLine1')?.errors?.required}"
+           >
+          <div class="form-text text-danger"
+            *ngIf="isSubmited &&userForm.get('address.addressLine1')?.errors?.required">
+            Address line 1 is required.
+          </div>
+        </div>
+     
+      <div class="mb-3">
+        <label for="addressLine1" class="form-label">Address Line 2: </label>
+        <input type="text" id="addressLine1" class="form-control" formControlName="addressLine2" name="addressLine2"
+          required="">
+      </div>
+      <div class="mb-3">
+        <label for="city" class="form-label">City: </label>
+        <input type="text" id="city" class="form-control" formControlName="city" name="city" required="">
+      </div>
+      </div>
+
+      <div class=" d-flex justify-content-center">
+        <button type="submit" class="btn btn-success m-2" (click)="onSubmit()">{{isEdit == true ? 'Upadte' : "Submit"}}</button>
+        <button type="reset" class="btn btn-secondary m-2" (click)="resetForm()">Cancel</button>
+      </div>
+    </form>
   </div>
+</div>
+
+
+{{userForm.get('address.addressLine1')?.errors | json}}
+

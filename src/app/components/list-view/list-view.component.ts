@@ -19,6 +19,9 @@ export class ListViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTask()
+
+    
+    
   }
 
   addTask(){
@@ -38,6 +41,8 @@ export class ListViewComponent implements OnInit {
   loadTask(){
     this.taskService.getTask().subscribe(d => {
       this.tasks = d
+      console.log(d);
+      
     })
   }
 

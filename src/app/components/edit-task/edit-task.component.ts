@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from '../../Services/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../../Models/user';
+import { UserService } from '../../Services/user.service';
 
 @Component({
   selector: 'app-edit-task',
@@ -11,54 +13,61 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditTaskComponent implements OnInit {
 
-  taskId :number =0 
-  taskForm : FormGroup;
+  taskId: number = 0
+  taskForm: FormGroup;
+  users: User[] = []
+ 
 
-  constructor(private fb: FormBuilder, private taskService: TaskService, private router: Router, private route :ActivatedRoute, private toastr : ToastrService){
+  constructor(private fb: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private toastr: ToastrService, private userService: UserService) {
     this.taskForm = this.fb.group({
-      title :['',[Validators.required]],
-      description:[''],
-      dueDate:[''],
-      priority:['',[Validators.required]]
+      title: ['', [Validators.required]],
+      description: [''],
+      dueDate: [''],
+      priority: ['', [Validators.required]],
+      assigneeId: ['']
     })
 
 
     const PatchId = this.route.snapshot.paramMap.get('id');
     this.taskId = Number(PatchId)
-   }
-   
-   
+  }
 
-   ngOnInit(): void {
 
-    this.taskService.getTaskById(this.taskId).subscribe(data =>{
 
-        let formatdate = new Date(data.dueDate).toISOString().slice(0,10);
-        this.taskForm.patchValue({
-          title : data.title,
-          description : data.description,
-          dueDate : formatdate,
-          priority : data.priority
-     })
+  ngOnInit(): void {
+
+    this.taskService.getTaskById(this.taskId).subscribe(data => {
+      let formatdate = new Date(data.dueDate).toISOString().slice(0, 10);
+      this.taskForm.patchValue({
+        title: data.title,
+        description: data.description,
+        dueDate: formatdate,
+        priority: data.priority,
+        assigneeId: data.user.name
+      })
     })
-   
-   }
+
+    this.userService.getUser().subscribe(data => {
+      this.users = data
+    })
+
+  }
 
 
-   onSubmit(){
+  onSubmit() {
     let task = this.taskForm.value;
     task.id = this.taskId;
-    this.taskService.UpdateTask(task).subscribe(data =>{
+    this.taskService.UpdateTask(task).subscribe(data => {
       this.toastr.success("Task is update successfully")
       this.router.navigate(["/tasks"]);
-    }, Error =>{
+    }, Error => {
       this.toastr.error("Task updated failed")
     });
-    
-   }
 
-   resetForm(){
+  }
+
+  resetForm() {
     this.taskForm.reset();
     this.router.navigate(["/tasks"]);
-   }
+  }
 }

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../Services/user.service';
 import { User } from '../../Models/user';
+import { TaskService } from '../../Services/task.service';
 
 @Component({
   selector: 'app-add-user',
@@ -14,8 +15,10 @@ export class AddUserComponent implements OnInit {
   userForm: FormGroup;
   isEdit = false;
   userId: number;
+  isSubmited:boolean = false;
+  addressId: number = 0
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private toastr: ToastrService, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private toastr: ToastrService, private route: ActivatedRoute, private taskService : TaskService) {
 
     const PatchId = this.route.snapshot.paramMap.get('id');
     this.userId = Number(PatchId)
@@ -27,7 +30,12 @@ export class AddUserComponent implements OnInit {
       name: ['', [Validators.required]],
       email: ['',[Validators.email]],
       phone: ['', [Validators.pattern(/^07\d{8}$/)]],
-      password: ['', [Validators.required,Validators.minLength(8)]]
+      password: ['', [Validators.required,Validators.minLength(8)]],
+      address : this.fb.group({
+        addressLine1 : ['', [Validators.required]],
+        addressLine2 : [''],
+        city : ['']
+      })
     })
 
     if (PatchId) {
@@ -41,14 +49,22 @@ export class AddUserComponent implements OnInit {
     if (this.isEdit == true) {
       this.userService.getUserById(this.userId).subscribe(data => {
         console.log(data);
+        this.addressId = Number(data.address?.id)
 
         this.userForm.patchValue({
           id: data.id,
           name: data.name,
           email: data.email,
           phone: data.phone,
-          password: data.password
-        })
+          password: data.password,
+          address: {
+            addressLine1: data.address?.addressLine1,
+            addressLine2: data.address?.addressLine2,
+            city: data.address?.city,
+          }
+        });
+        
+       
       }, error => {
         this.toastr.error('User is not found!')
       })
@@ -57,26 +73,36 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     let User:User = this.userForm.value;
+    this.isSubmited = true;
+   
 
-    if (this.isEdit == true) {
-      User.id = this.userId
-      this.userService.UpdateUser(User).subscribe(data => {
-        this.toastr.success('user updated successfully');
-        this.router.navigate(['/users'])
-      }, Error => {
-        this.toastr.error("User Updated failed")
-      })
-    }
-    else {
-      
-      this.userService.addUser(User).subscribe(data => {
-        this.toastr.success("User is created successfully")
-        this.router.navigate(["/users"]);
-      }, Error => {
-        this.toastr.error("User created failed")
-      })
-    }
+    if(this.userForm.valid){
 
+      if (this.isEdit == true) {
+        User.id = this.userId
+        
+        this.userService.UpdateUser(User).subscribe(data => {
+          this.isSubmited = false;
+  
+          this.toastr.success('user updated successfully');
+          this.router.navigate(['/users'])
+        }, Error => {
+          this.toastr.error("User Updated failed");
+          this.isSubmited = false;
+        })
+      }
+      else {
+        
+        this.userService.addUser(User).subscribe(data => {
+          this.toastr.success("User is created successfully")
+          this.router.navigate(["/users"]);
+        }, Error => {
+          this.toastr.error("User created failed")
+        })
+      }
+  
+    }
+   
 
   }
 

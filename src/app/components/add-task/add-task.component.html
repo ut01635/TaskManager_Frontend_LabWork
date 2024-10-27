@@ -33,6 +33,14 @@
           required.</div>
       </div>
 
+       <div class="mb-3">
+        <label for="assigneeId" class="form-label">Assignee:</label>
+        <select class="form-select" id="assigneeId" aria-label="Floating label select " formControlName="assigneeId">
+          <option value="" selected>Select Assignee</option>
+          <option *ngFor="let user of users" value={{user.id}}>{{user.name}}</option>
+        </select>
+      </div>
+
 
       <div class=" d-flex justify-content-center">
         <button type="submit" [disabled]="taskForm.invalid" class="btn btn-success m-2">Submit</button>
