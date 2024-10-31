@@ -7,4 +7,5 @@ export interface Task{
     dueDate : Date;
     priority :string;
     user : User
+    
 }

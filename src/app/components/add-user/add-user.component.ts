@@ -32,6 +32,7 @@ export class AddUserComponent implements OnInit {
       phone: ['', [Validators.pattern(/^07\d{8}$/)]],
       password: ['', [Validators.required,Validators.minLength(8)]],
       address : this.fb.group({
+        id : [],
         addressLine1 : ['', [Validators.required]],
         addressLine2 : [''],
         city : ['']
@@ -58,6 +59,7 @@ export class AddUserComponent implements OnInit {
           phone: data.phone,
           password: data.password,
           address: {
+            id :data.address?.id,
             addressLine1: data.address?.addressLine1,
             addressLine2: data.address?.addressLine2,
             city: data.address?.city,
@@ -79,8 +81,7 @@ export class AddUserComponent implements OnInit {
     if(this.userForm.valid){
 
       if (this.isEdit == true) {
-        User.id = this.userId
-        
+        User.id = this.userId; 
         this.userService.UpdateUser(User).subscribe(data => {
           this.isSubmited = false;
   
