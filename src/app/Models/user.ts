@@ -1,10 +1,13 @@
+import { Task } from "./task";
+
 export interface User {
     id :number,
     name:string,
     email:string,
     password:string,
-    phone: string
-    address? : Address
+    phone: string,
+    address?: Address,
+  tasks: Task[];
 }
 
 export interface Address{

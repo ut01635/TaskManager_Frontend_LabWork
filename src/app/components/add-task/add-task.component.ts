@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from '../../Services/task.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -23,9 +23,25 @@ export class AddTaskComponent implements OnInit {
       description:[''],
       dueDate:[''],
       priority:['',[Validators.required]],
-      assigneeId : ['']
+      assigneeId : [''],
+      checkList : this.fb.array([])
     })
    }
+
+   get myCheckLists(): FormArray {
+    return this.taskForm.get('checkLists') as FormArray
+  }
+
+  addNewChecklist() {
+    this.myCheckLists.push(this.fb.group({
+      name: [''],
+      isDone: [false]
+    }))
+  }
+
+  removeChecklist(index: number) {
+    this.myCheckLists.removeAt(index);
+  }
 
 
    ngOnInit(): void {

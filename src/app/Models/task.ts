@@ -6,6 +6,6 @@ export interface Task{
     description : string;
     dueDate : Date;
     priority :string;
-    user : User
+    assignee?: User;
     
 }

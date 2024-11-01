@@ -10,40 +10,48 @@ import { UserService } from '../../Services/user.service';
   styleUrl: './user-list.component.css'
 })
 export class UserListComponent implements OnInit {
-  users :User[] =[];
+  users: User[] = [];
 
-  SearchText :string ='';
+  SearchText: string = '';
 
-  constructor (private userService : UserService, private router:Router, private toastr : ToastrService){  }
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.loadUser()
   }
 
-  addUser(){
+  addUser() {
     this.router.navigate(["/user-add"])
   }
 
-  onDelete(id : number){
-    return this.userService.deleteUser(id).subscribe( data => {
-     confirm('Are you want delete this user?')
-      this.loadUser()
-      this.toastr.success("User is deleted")
-    }, error =>{
-      this.toastr.error("User delete faild")
-    } )
+  onDelete(id: number) {
+    if (confirm("Do you want to delete this user?")) {
+      this.userService.deleteUser(id).subscribe(data => {
+        this.loadUser()
+        this.toastr.success("User is deleted")
+      }, error => {
+        this.toastr.error('User deleted failed')
+      })
+
+    }
   }
 
-  loadUser(){
+  loadUser() {
     this.userService.getUser().subscribe(d => {
       console.log(d);
-      
+
       this.users = d
     })
   }
 
-  onEdit(userId : number){
-    this.router.navigate(['/user-edit',userId ])
+  onEdit(userId: number) {
+    this.router.navigate(['/user-edit', userId])
   }
 
 }

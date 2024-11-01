@@ -18,7 +18,18 @@ export class EditTaskComponent implements OnInit {
   users: User[] = []
  
 
-  constructor(private fb: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private toastr: ToastrService, private userService: UserService) {
+  constructor(
+    private fb: FormBuilder, 
+    private taskService: TaskService, 
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private toastr: ToastrService, 
+    private userService: UserService
+  ) {
+
+    const PatchId = this.route.snapshot.paramMap.get('id');
+    this.taskId = Number(PatchId)
+
     this.taskForm = this.fb.group({
       title: ['', [Validators.required]],
       description: [''],
@@ -28,13 +39,16 @@ export class EditTaskComponent implements OnInit {
     })
 
 
-    const PatchId = this.route.snapshot.paramMap.get('id');
-    this.taskId = Number(PatchId)
+    
   }
 
 
 
   ngOnInit(): void {
+
+    this.userService.getUser().subscribe(data => {
+      this.users = data;
+    })
 
     this.taskService.getTaskById(this.taskId).subscribe(data => {
       let formatdate = new Date(data.dueDate).toISOString().slice(0, 10);
@@ -43,12 +57,8 @@ export class EditTaskComponent implements OnInit {
         description: data.description,
         dueDate: formatdate,
         priority: data.priority,
-        assigneeId: data.user.name
+        assigneeId: data.assignee?.id
       })
-    })
-
-    this.userService.getUser().subscribe(data => {
-      this.users = data
     })
 
   }

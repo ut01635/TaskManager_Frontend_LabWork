@@ -15,7 +15,15 @@ export class ListViewComponent implements OnInit {
 
   SearchText :string ='';
 
-  constructor (private taskService : TaskService, private router:Router, private toastr : ToastrService){  }
+  taskId = 0;
+
+  constructor (
+    private taskService : TaskService, 
+    private router:Router, 
+    private toastr : ToastrService
+  ){ 
+
+   }
 
   ngOnInit(): void {
     this.loadTask()
@@ -32,9 +40,9 @@ export class ListViewComponent implements OnInit {
     return this.taskService.deleteTask(id).subscribe( data => {
       confirm("Are you want delete this task?")
       this.loadTask()
-      this.toastr.success("Task is deleted!")
+      this.toastr.success("Task is deleted successfully!")
     }, error =>{
-      this.toastr.error("Task delete faild!")
+      this.toastr.error("Task delete failed!")
     } )
   }
 

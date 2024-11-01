@@ -13,62 +13,65 @@ import { TaskService } from '../../Services/task.service';
 })
 export class AddUserComponent implements OnInit {
   userForm: FormGroup;
-  isEdit = false;
-  userId: number;
+  isEditMode = false;
+  userId: number = 0;
   isSubmited:boolean = false;
   addressId: number = 0
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private toastr: ToastrService, private route: ActivatedRoute, private taskService : TaskService) {
+  constructor(
+    private fb: FormBuilder, 
+    private userService: UserService, 
+    private router: Router, 
+    private toastr: ToastrService, 
+    private route: ActivatedRoute, 
+    private taskService : TaskService) {
 
     const PatchId = this.route.snapshot.paramMap.get('id');
-    this.userId = Number(PatchId)
-
-    console.log(PatchId)
-
-
+    if (PatchId) {
+      this.userId = Number(PatchId)
+      this.isEditMode = true
+      console.log(PatchId)
+    } else {
+      this.isEditMode = false
+    }
+    
     this.userForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['',[Validators.email]],
       phone: ['', [Validators.pattern(/^07\d{8}$/)]],
       password: ['', [Validators.required,Validators.minLength(8)]],
       address : this.fb.group({
-        id : [],
         addressLine1 : ['', [Validators.required]],
         addressLine2 : [''],
         city : ['']
       })
-    })
-
-    if (PatchId) {
-      this.isEdit = true
-    } else {
-      this.isEdit = false
-    }
+    });
   }
 
   ngOnInit(): void {
-    if (this.isEdit == true) {
+    if (this.isEditMode == true) {
       this.userService.getUserById(this.userId).subscribe(data => {
         console.log(data);
         this.addressId = Number(data.address?.id)
 
-        this.userForm.patchValue({
-          id: data.id,
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          password: data.password,
-          address: {
-            id :data.address?.id,
-            addressLine1: data.address?.addressLine1,
-            addressLine2: data.address?.addressLine2,
-            city: data.address?.city,
-          }
-        });
+        this.userForm.patchValue(data);
+        // ({
+        //   id: data.id,
+        //   name: data.name,
+        //   email: data.email,
+        //   phone: data.phone,
+        //   password: data.password,
+        //   address: {
+        //     id :data.address?.id,
+        //     addressLine1: data.address?.addressLine1,
+        //     addressLine2: data.address?.addressLine2,
+        //     city: data.address?.city,
+        //   }
+        // });
         
        
       }, error => {
-        this.toastr.error('User is not found!')
+        this.toastr.error('User is not found!: ' + error.title)
       })
     }
   }
@@ -80,8 +83,11 @@ export class AddUserComponent implements OnInit {
 
     if(this.userForm.valid){
 
-      if (this.isEdit == true) {
+      if (this.isEditMode == true) {
         User.id = this.userId; 
+        // User.address.userId = this.userId;
+        // User.address.id = this.addressId;
+
         this.userService.UpdateUser(User).subscribe(data => {
           this.isSubmited = false;
   

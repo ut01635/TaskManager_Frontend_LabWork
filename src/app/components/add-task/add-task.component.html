@@ -2,50 +2,82 @@
   <div class="bg-info-subtle p-5 rounded-3 col-6 ">
     <h2 class="mb-4">Registration Form1</h2>
     <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input type="text" id="title" class="form-control " formControlName="title" name="title" required>
+            <div class="form-text text-danger"
+              *ngIf="taskForm.controls.title.errors?.required.submit && taskForm.controls.title.touched">Title is
+              required.</div>
+          </div>
 
-      <div class="mb-3">
-        <label for="title" class="form-label">Title:</label>
-        <input type="text" id="title" class="form-control " formControlName="title" name="title" required>
-        <div class="form-text text-danger"
-          *ngIf="taskForm.controls.title.errors?.required.submit && taskForm.controls.title.touched">Title is required.</div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description:</label>
+            <input type="text" id="description" class="form-control" formControlName="description" name="description">
+          </div>
+
+          <div class="mb-3">
+            <label for="dueDate" class="form-label">Due Date:</label>
+            <input type="date" id="dueDate" class="form-control" formControlName="dueDate" name="dueDate">
+          </div>
+
+          <div class="mb-3">
+            <label for="priority" class="form-label">Priority:</label>
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select "
+              formControlName="priority">
+              <option value="" selected>Select priority</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+            <div class="form-text text-danger"
+              *ngIf="taskForm.controls.priority.errors?.required.submit && taskForm.controls.Priority.touched">Priority
+              is
+              required.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="assigneeId" class="form-label">Assignee:</label>
+            <select class="form-select" id="assigneeId" aria-label="Floating label select "
+              formControlName="assigneeId">
+              <option value="" selected>Select Assignee</option>
+              <option *ngFor="let user of users" value={{user.id}}>{{user.name}}</option>
+            </select>
+          </div>
+
+
+          <div class=" d-flex justify-content-center">
+            <button type="submit" [disabled]="taskForm.invalid" class="btn btn-success m-2">Submit</button>
+            <button type="reset" class="btn btn-secondary m-2" (click)="resetForm()">Cancel</button>
+          </div>
+        </div>
+        <div class="col">
+          <h3>Add Checklist</h3>
+          <hr>
+          <div formArrayName="checkLists">
+            <div class="row" *ngFor="let checkList of myCheckLists.controls; let i = index">
+              <div class="" [formGroupName]="i">
+                <div class="row">
+                  <div class="col form-check">
+                    <input type="checkbox" class="form-check-input" formControlName="isDone">
+                    <input type="text" autocomplete="off" class="form-control" id="description" formControlName="name">
+                  </div>
+                  <div class="col">
+                    <button type="button" class="btn btn-danger" (click)="removeChecklist(i)">X</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button *ngIf="myCheckLists.length < 3" type="button" class="btn btn-success" (click)="addNewChecklist()"> +
+              Add</button>
+          </div>
+        </div>
       </div>
 
-      <div class="mb-3">
-        <label for="description" class="form-label">Description:</label>
-        <input type="text" id="description" class="form-control" formControlName="description" name="description">
-      </div>
 
-      <div class="mb-3">
-        <label for="dueDate" class="form-label">Due Date:</label>
-        <input type="date" id="dueDate" class="form-control" formControlName="dueDate" name="dueDate">
-      </div>
-
-      <div class="mb-3">
-        <label for="priority" class="form-label">Priority:</label>
-        <select class="form-select" id="floatingSelect" aria-label="Floating label select " formControlName="priority">
-          <option value="" selected>Select priority</option>
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
-        <div class="form-text text-danger"
-          *ngIf="taskForm.controls.priority.errors?.required.submit && taskForm.controls.Priority.touched">Priority is
-          required.</div>
-      </div>
-
-       <div class="mb-3">
-        <label for="assigneeId" class="form-label">Assignee:</label>
-        <select class="form-select" id="assigneeId" aria-label="Floating label select " formControlName="assigneeId">
-          <option value="" selected>Select Assignee</option>
-          <option *ngFor="let user of users" value={{user.id}}>{{user.name}}</option>
-        </select>
-      </div>
-
-
-      <div class=" d-flex justify-content-center">
-        <button type="submit" [disabled]="taskForm.invalid" class="btn btn-success m-2">Submit</button>
-        <button type="reset" class="btn btn-secondary m-2" (click)="resetForm()">Reset</button>
-      </div>
     </form>
   </div>
 </div>
