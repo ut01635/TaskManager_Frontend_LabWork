@@ -5,6 +5,8 @@ import { AddTaskComponent } from './components/add-task/add-task.component';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   {path : 'tasks', component :ListViewComponent},
@@ -14,7 +16,10 @@ const routes: Routes = [
   {path: 'task-edit/:id', component: EditTaskComponent},
 
   {path:'user-add',component:AddUserComponent},
-  {path:'user-edit/:id',component:AddUserComponent}
+  {path:'user-edit/:id',component:AddUserComponent},
+
+  {path:'login', component:LoginComponent},
+  {path:'register',component:RegisterComponent}
 ];
 
 @NgModule({

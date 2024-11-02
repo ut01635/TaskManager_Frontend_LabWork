@@ -13,8 +13,8 @@ import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { ToastrModule } from 'ngx-toastr';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
-import { RegisterComponentComponent } from './components/register-component/register-component.component';
-import { LoginComponentComponent } from './components/login-component/login-component.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +25,8 @@ import { LoginComponentComponent } from './components/login-component/login-comp
     EditTaskComponent,
     UserListComponent,
     AddUserComponent,
-    RegisterComponentComponent,
-    LoginComponentComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
