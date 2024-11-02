@@ -26,10 +26,7 @@ export class ListViewComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.loadTask()
-
-    
-    
+    this.loadTask()   
   }
 
   addTask(){

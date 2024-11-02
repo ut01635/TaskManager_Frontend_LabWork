@@ -24,7 +24,7 @@ export class AddTaskComponent implements OnInit {
       dueDate:[''],
       priority:['',[Validators.required]],
       assigneeId : [''],
-      checkList : this.fb.array([])
+      checkLists : this.fb.array([])
     })
    }
 
@@ -47,6 +47,8 @@ export class AddTaskComponent implements OnInit {
    ngOnInit(): void {
      this.userService.getUser().subscribe(data=>{
       this.users = data
+      console.log(this.users);
+      
      })
    }
 
@@ -56,7 +58,10 @@ export class AddTaskComponent implements OnInit {
       this.toastr.success("Task is created successfully")
       this.router.navigate(["/tasks"]);
     },Error =>{
-      this.toastr.error("Task created failed")
+
+      console.log(Error.error);
+      this.toastr.error("Task created failed");
+      
     })
    }
 
