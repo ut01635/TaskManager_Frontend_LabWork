@@ -16,3 +16,10 @@ export interface Address{
     addressLine2:string,
     city:string
 }
+
+export interface UserRegister{
+  fullName:string,
+  email:string,
+  password : string,
+  role : number
+}

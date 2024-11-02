@@ -1,5 +1,36 @@
-<h1>helloooo this is login</h1>
-<h1>helloooo this is login</h1>
-<h1>helloooo this is login</h1>
-<h1>helloooo this is login</h1>
+<div class="container">
 
+    <div class="card mt-5 p-3">
+        <div class=" d-flex justify-content-start px-5">
+            <h3 class="text-center">User Login</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                        <div class="mb-5">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" id="email" class="form-control" formControlName="email"
+                                name="email">
+                        </div>
+
+                        <div class="mb-5">
+                            <label for="password" class="form-label">Password: </label>
+                            <input type="password" id="password" class="form-control" formControlName="password"
+                                name="password">
+                        </div>
+
+                        <div class=" d-flex justify-content-center">
+                            <button type="submit" [disabled]="loginForm.invalid" class="btn btn-success m-2">Submit</button>
+                          </div>
+                    </form>
+                    <p class="text-danger">{{message}}</p>
+
+                </div>
+                <div class="col d-flex justify-content-center">
+                    <img src="./2024.11.02 - Lab work - signin-image.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

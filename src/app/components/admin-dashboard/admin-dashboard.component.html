@@ -1,0 +1,48 @@
+<nav class="navbar bg-dark border-bottom border-body fixed-top" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand">Unicom TIC</a>
+      <form class="d-flex" role="search">
+        <button class="btn btn-outline-success" type="button" [routerLink]="['/login']">Login</button>
+      </form>
+    </div>
+  </nav>
+  <div class="d-flex">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100vh;">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <svg class="bi pe-none me-2" width="40" height="32">
+          <use xlink:href="#bootstrap" />
+        </svg>
+        <!-- <span class="fs-4">Sidebar</span> -->
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a href="#" class="nav-link active" [routerLink]="['']">
+            <i class="bi bi-house-fill" width="16" height="16"></i>
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white" [routerLink]="['/users']" >
+            <i class="bi bi-people-fill" width="16" height="16"></i>
+            Users
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-white" [routerLink]="['/tasks']">
+            <i class="bi bi-stack" width="20" height="20"></i>
+            Tasks
+          </a>
+        </li>
+      </ul>
+      <hr>
+    
+    </div>
+  
+    <div style="width: 100%; height: 100vh;" class="m-3 modal-dialog-scrollable" >
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  
+  
+  
