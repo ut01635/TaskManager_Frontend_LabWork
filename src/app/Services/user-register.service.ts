@@ -16,7 +16,7 @@ export class UserRegisterService {
   }
 
   loginUser(email: string, password: string) {
-    return this.http.post(this.apiURL, { email, password });
+    return this.http.post(this.apiURL+`?Email=${email}&password=${password}`,{email,password});
   }
 
 }

@@ -30,16 +30,17 @@ export class LoginComponent {
 
   onSubmit(){
     let loginUser = this.loginForm.value
-    console.log(loginUser);
+    console.log(loginUser.Email);
     
 
     return this.loginService.loginUser(loginUser.Email,loginUser.password).subscribe(data=>{
       if(data){
+        this.toastr.success('Login Successfully')
         this.router.navigate(['/admin-dashboard'])
       }
     },error =>{
       this.toastr.error(error.message)
-      this.message = error.message
+      this.message = error.message.json
     })
 
     
