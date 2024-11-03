@@ -7,7 +7,7 @@ export interface User {
     password:string,
     phone: string,
     address?: Address,
-  tasks: Task[];
+    tasks: Task[];
 }
 
 export interface Address{
@@ -21,5 +21,6 @@ export interface UserRegister{
   fullName:string,
   email:string,
   password : string,
-  role : number
+  role : number,
+  agree :boolean
 }

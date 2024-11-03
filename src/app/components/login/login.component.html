@@ -8,18 +8,18 @@
             <div class="row">
                 <div class="col">
                     <main class="form-signin w-100 m-auto">
-                        <form>
+                        <form [formGroup]="loginForm" onsubmit="onSubmit()">
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-person"></i></span>
-                                <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                                    aria-describedby="basic-addon1">
+                                <input type="text" class="form-control" placeholder="Your Email" aria-label="email" 
+                                    aria-describedby="basic-addon1" formControlName="Email">
                             </div>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-lock"></i></span>
-                                <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                                    aria-describedby="basic-addon1">
+                                <input type="text" class="form-control" placeholder="Password" aria-label="Password"
+                                    aria-describedby="basic-addon1" formControlName="password">
                             </div>
 
                             <div class="form-check text-start my-3">
@@ -29,7 +29,7 @@
                                     Remember me
                                 </label>
                             </div>
-                            <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+                            <button class="btn btn-primary w-100 py-2" type="submit">Log in</button>
                             <p class="text-danger">{{message}}</p>
                             <p class="mt-2 mb-3 text-body-secondary text-center"><a href=""  [routerLink]="['/register']">Create an account</a></p>
                         </form>

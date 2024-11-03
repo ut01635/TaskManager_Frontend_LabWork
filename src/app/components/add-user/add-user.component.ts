@@ -30,7 +30,6 @@ export class AddUserComponent implements OnInit {
     if (PatchId) {
       this.userId = Number(PatchId)
       this.isEditMode = true
-      console.log(PatchId)
     } else {
       this.isEditMode = false
     }

@@ -12,6 +12,7 @@ import { UserService } from '../../Services/user.service';
 export class RegisterComponent implements OnInit {
   userId: number = 0;
   registerForm: FormGroup;
+message: any;
  
 
   constructor(
@@ -26,8 +27,9 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group({
       fullName: ['', [Validators.required]],
       email: ['',[Validators.email]],
-      password : ['', [Validators.required, Validators.minLength(8)]],
-      role: [1, [Validators.required]],
+      password : ['', [Validators.required, Validators.minLength(6)]],
+      role: [, [Validators.required]],
+      agree:[false,[Validators.required]]
     });
   }
 
