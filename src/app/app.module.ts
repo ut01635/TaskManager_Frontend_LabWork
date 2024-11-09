@@ -15,7 +15,8 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { BlanklayoutComponent } from './layout/blanklayout/blanklayout.component';
+import { AdminlayoutComponent } from './layout/adminlayout/adminlayout.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
     AddUserComponent,
     LoginComponent,
     RegisterComponent,
-    AdminDashboardComponent
+    BlanklayoutComponent,
+    AdminlayoutComponent
   ],
   imports: [
     BrowserModule,

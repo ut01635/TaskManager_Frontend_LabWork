@@ -7,12 +7,12 @@ import { UserRegister } from '../Models/user';
 })
 export class UserRegisterService {
 
-  apiURL: string = 'https://localhost:7059/api/UsersLogin/'
+  apiURL: string = 'https://localhost:7059/api/Auth'
 
   constructor(private http: HttpClient) { }
 
   userRegister(NewUser: UserRegister) {
-    return this.http.post(this.apiURL + "register", NewUser)
+    return this.http.post(this.apiURL, NewUser)
   }
 
   loginUser(email: string, password: string) {
