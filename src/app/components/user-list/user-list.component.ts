@@ -27,7 +27,7 @@ export class UserListComponent implements OnInit {
   }
 
   addUser() {
-    this.router.navigate(["/user-add"])
+    this.router.navigate(["/admin/user-add"])
   }
 
   onDelete(id: number) {
@@ -44,14 +44,14 @@ export class UserListComponent implements OnInit {
 
   loadUser() {
     this.userService.getUser().subscribe(d => {
-      console.log(d);
+      // console.log(d);
 
       this.users = d
     })
   }
 
   onEdit(userId: number) {
-    this.router.navigate(['/user-edit', userId])
+    this.router.navigate(['/admin/user-edit', userId])
   }
 
 }

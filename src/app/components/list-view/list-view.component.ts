@@ -30,7 +30,7 @@ export class ListViewComponent implements OnInit {
   }
 
   addTask(){
-    this.router.navigate(["/task-add"])
+    this.router.navigate(["/admin/task-add"])
   }
 
   onDelete(id : number){
@@ -46,13 +46,13 @@ export class ListViewComponent implements OnInit {
   loadTask(){
     this.taskService.getTask().subscribe(d => {
       this.tasks = d
-      console.log(d);
+      // console.log(d);
       
     })
   }
 
   onEdit(taskId : number){
-    this.router.navigate(['/task-edit',taskId ])
+    this.router.navigate(['/admin/task-edit',taskId ])
   }
 
 

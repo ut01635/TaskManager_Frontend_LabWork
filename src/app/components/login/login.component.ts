@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { UserRegisterService } from '../../Services/user-register.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { UserService } from '../../Services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,39 +11,36 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  loginForm :FormGroup
-  message:string =""
+  loginForm: FormGroup
+  message: string = ""
 
   constructor(
-    private fb : FormBuilder,
-    private loginService : UserRegisterService,
-    private toastr : ToastrService,
+    private fb: FormBuilder,
+    private userservice: UserService,
+    private toastr: ToastrService,
     private router: Router,
-  ){
+  ) {
 
     this.loginForm = this.fb.group({
-      Email:[''],
-      password:['']
+      Email: [''],
+      password: ['']
     })
   }
 
 
-  onSubmit(){
+  onSubmit() {
     let loginUser = this.loginForm.value
-    console.log(loginUser.Email);
-    
 
-    return this.loginService.loginUser(loginUser.Email,loginUser.password).subscribe(data=>{
-      if(data){
-        this.toastr.success('Login Successfully')
-        this.router.navigate(['/admin-dashboard'])
-      }
-    },error =>{
-      this.toastr.error(error.message)
-      this.message = error.message.json
+
+    this.userservice.loginUser(loginUser).subscribe((data:any) => {
+      localStorage.setItem("Token",data.token)
+     this.router.navigate(['/admin/tasks'])
+      console.log(data);
+    }, error => {
+      this.toastr.error(error.error)
+      this.message = error.error
+      console.log(error.error);
     })
-
-    
   }
 
 }

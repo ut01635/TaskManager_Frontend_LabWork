@@ -24,3 +24,8 @@ export interface UserRegister{
   role : number,
   agree :boolean
 }
+
+export interface UserLogin{
+  email:string
+  password:string
+}
